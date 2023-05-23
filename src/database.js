@@ -8,7 +8,17 @@ const databasePath = new URL("../db.json", import.meta.url);
 export class Database {
   #database = {};
 
-  constructor() {}
+  //Ao iniciar o servidor, tenta recuperar os arquivos contidos no db.json.
+  //Caso o db.json não exista, ele cria o arquivo vazio.
+  constructor() {
+    fs.readFile(databasePath, "utf8")
+      .then((data) => {
+        this.#database = JSON.parse(data);
+      })
+      .catch(() => {
+        this.#persist();
+      });
+  }
 
   #persist() {
     fs.writeFile(databasePath, JSON.stringify(this.#database));
@@ -26,6 +36,7 @@ export class Database {
       this.#database[table] = data;
     }
 
+    //Persistência. Toda vez que um novo dado for inserido, será salvo no db.json
     this.#persist();
 
     return data;
