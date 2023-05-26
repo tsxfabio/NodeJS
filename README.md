@@ -15,5 +15,4 @@ npm init -y
 
 ```
 "type": "module",
-
 ```
