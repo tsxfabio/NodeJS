@@ -1,4 +1,4 @@
-# nodejs-tasks-api
+# Tasks API
 
 ## Tips and Tricks
 
