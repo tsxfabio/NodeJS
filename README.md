@@ -30,3 +30,16 @@ npm init -y
 ```
 "type": "module",
 ```
+
+- Middleware é todo tipo de função que está entre um pedido HTTP e a resposta
+  final que o servidor envia de volta para o cliente.
+
+- No node, a '#' serve para definir uma variável/função como privada. ex:
+
+```
+const #database
+
+#log(data) {
+console.log(data)
+}
+```
