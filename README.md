@@ -43,3 +43,14 @@ const #database
 console.log(data)
 }
 ```
+
+- Para a criação de IDs únicos, apesar de diversar possibilidades e bibliotecas
+  externas, é recomendado (pela Rocketseat) o uso da função padrão do NodeJS.
+
+```
+import { randomUUID } from 'node:crypto'
+
+const objectExemple = {
+  id: randomUUID(),
+}
+```
