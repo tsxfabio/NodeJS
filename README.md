@@ -10,8 +10,9 @@ conter as seguintes funcionalidades:
 - [x] Criação de uma task.
 - [x] Listagem de todas as tasks.
 - [ ] Atualização de uma task pelo id.
-- [x] Deletar uma task pelo id.
+- [ ] Atualizar o valor de 'updated_at' toda vez que uma task for alterada.
 - [ ] Através do id, marcar a task como completa.
+- [x] Deletar uma task pelo id.
 - [ ] Importação de tasks em massa por meio de um arquivo CSV.
 
 ## Tips and Tricks
