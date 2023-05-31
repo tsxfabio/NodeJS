@@ -24,6 +24,15 @@ export class Database {
     return data;
   }
 
+  selectById(table, id) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      const task = this.#database[table][rowIndex];
+      return task;
+    }
+  }
+
   insert(table, data) {
     if (Array.isArray(this.#database[table])) {
       this.#database[table].push(data);

@@ -23,12 +23,30 @@ export const routes = [
         title,
         description,
         created_at: new Date(),
-        completed_at: null,
-        updated_at: null,
+        updated_at: new Date(),
+        completed_at: false,
       };
 
       database.insert("tasks", task);
       return res.end();
+    },
+  },
+  {
+    method: "PUT",
+    path: buildRoutePath("/tasks/:id"),
+    handler: (req, res) => {
+      const { id } = req.params;
+      const task = database.selectById("tasks", id);
+      const { title, description } = req.body;
+
+      const taskEdit = {
+        ...task,
+        title: title ?? task.title,
+        description: description ?? task.description,
+        updated_at: new Date(),
+      };
+      console.log(taskEdit);
+      res.end();
     },
   },
   {
