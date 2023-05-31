@@ -7,12 +7,12 @@ da trilha de NodeJS da RocketSeat.
 O desafio consiste na criação de uma API para realizar o CRUD de tasks. Deve
 conter as seguintes funcionalidades:
 
-[x] Criação de uma task.  
-[x] Listagem de todas as tasks.  
-[ ] Atualização de uma task pelo id.  
-[x] Deletar uma task pelo id.  
-[ ] Através do id, marcar a task como completa.  
-[ ] Importação de tasks em massa por meio de um arquivo CSV.
+- [x] Criação de uma task.
+- [x] Listagem de todas as tasks.
+- [ ] Atualização de uma task pelo id.
+- [x] Deletar uma task pelo id.
+- [ ] Através do id, marcar a task como completa.
+- [ ] Importação de tasks em massa por meio de um arquivo CSV.
 
 ## Tips and Tricks
 
