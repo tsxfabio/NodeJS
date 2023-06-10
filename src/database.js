@@ -44,6 +44,17 @@ export class Database {
     return data;
   }
 
+  edit(table, id, data) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      const task = this.#database[table][rowIndex];
+      const taskEdit = { ...task, ...data };
+      this.#database[table][rowIndex] = taskEdit;
+      this.#persist();
+    }
+  }
+
   delete(table, id) {
     const rowIndex = this.#database[table].findIndex((row) => row.id === id);
 

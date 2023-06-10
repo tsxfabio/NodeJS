@@ -17,18 +17,21 @@ export const routes = [
     method: "POST",
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
-      const { title, description } = req.body;
-      const task = {
-        id: randomUUID(),
-        title,
-        description,
-        created_at: new Date(),
-        updated_at: new Date(),
-        completed_at: false,
-      };
-
-      database.insert("tasks", task);
-      return res.end();
+      try {
+        const { title, description } = req.body;
+        const task = {
+          id: randomUUID(),
+          title,
+          description,
+          created_at: new Date(),
+          updated_at: new Date(),
+          completed_at: false,
+        };
+        database.insert("tasks", task);
+        return res.end();
+      } catch {
+        return res.writeHead(400).end();
+      }
     },
   },
   {
@@ -37,16 +40,24 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
       const task = database.selectById("tasks", id);
-      const { title, description } = req.body;
+      try {
+        const { title, description } = req.body;
+        if (!!title || !!description) {
+          const taskEdit = {
+            ...task,
+            title: title ?? task.title,
+            description: description ?? task.description,
+            updated_at: new Date(),
+          };
+          database.edit("tasks", id, taskEdit);
 
-      const taskEdit = {
-        ...task,
-        title: title ?? task.title,
-        description: description ?? task.description,
-        updated_at: new Date(),
-      };
-      console.log(taskEdit);
-      res.end();
+          return res.end();
+        } else {
+          return res.writeHead(400).end();
+        }
+      } catch {
+        return res.writeHead(400).end();
+      }
     },
   },
   {
