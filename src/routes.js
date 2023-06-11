@@ -5,6 +5,7 @@ import { buildRoutePath } from "./utils/build-route-path.js";
 const database = new Database();
 
 export const routes = [
+  /* Listagem de Tasks */
   {
     method: "GET",
     path: buildRoutePath("/tasks"),
@@ -13,6 +14,7 @@ export const routes = [
       return res.end(JSON.stringify(tasks));
     },
   },
+  /* Criação de uma Task */
   {
     method: "POST",
     path: buildRoutePath("/tasks"),
@@ -25,7 +27,7 @@ export const routes = [
           description,
           created_at: new Date(),
           updated_at: new Date(),
-          completed_at: false,
+          completed_at: null,
         };
         database.insert("tasks", task);
         return res.end();
@@ -34,6 +36,7 @@ export const routes = [
       }
     },
   },
+  /* Edição de uma Task */
   {
     method: "PUT",
     path: buildRoutePath("/tasks/:id"),
@@ -41,7 +44,7 @@ export const routes = [
       const { id } = req.params;
       const task = database.selectById("tasks", id);
       try {
-        const { title, description } = req.body;
+        const { title, description, completed_at } = req.body;
         if (!!title || !!description) {
           const taskEdit = {
             ...task,
@@ -60,6 +63,33 @@ export const routes = [
       }
     },
   },
+  /* Marcar uma Task como completa */
+  {
+    method: "PATCH",
+    path: buildRoutePath("/tasks/:id/complete"),
+    handler: (req, res) => {
+      const { id } = req.params;
+      const task = database.selectById("tasks", id);
+      if (task) {
+        if (task.completed_at) {
+          const taskEdit = {
+            ...task,
+            completed_at: null,
+          };
+          database.edit("tasks", id, taskEdit);
+        } else {
+          const taskEdit = {
+            ...task,
+            completed_at: new Date(),
+          };
+          database.edit("tasks", id, taskEdit);
+        }
+        return res.end();
+      }
+      return res.writeHead(404).end();
+    },
+  },
+  /* Deletar uma Task */
   {
     method: "DELETE",
     path: buildRoutePath("/tasks/:id"),
