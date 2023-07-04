@@ -3,12 +3,14 @@
 // Para cada banco de dados existe uma configuração diferente, que pode ser vista em: https://knexjs.org/guide/#configuration-options
 // É uma das primeiras configurações a serem feitas para o Knex funcionar.
 
+import 'dotenv/config'
 import { knex as setupKnex, Knex } from 'knex'
+import { env } from '../env/env'
 
 export const knexConfig: Knex.Config = {
   client: 'sqlite',
   connection: {
-    filename: './database/db.db',
+    filename: env.DATABASE_URL,
   },
   useNullAsDefault: true,
   migrations: {
