@@ -85,6 +85,6 @@ export async function transactionsRoutes(server: FastifyInstance) {
     })
 
     // Retorna o status 201 (Created) e uma mensagem de sucesso.
-    return response.send(201).send()
+    return response.status(201).send()
   })
 }
